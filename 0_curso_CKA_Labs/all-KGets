@@ -1,0 +1,2 @@
+k get po;k get ns;k get rs;k get svc;k get hpa;k get ing;k get deploy;k config get-contexts;k get pv;k get pvc;k get ev;k get jobs;k get cj;k get limits;k get quota;
+

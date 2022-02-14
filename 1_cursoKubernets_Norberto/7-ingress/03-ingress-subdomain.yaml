@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-subdomain
+  annotations:
+    nginx.ingress.kubernetes.io/default-backend: ingress-nginx-controller
+    kubernetes.io/ingress.class: nginx
+    ## tells ingress to check for regex in the config file
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - host: web1.workshop-springboot.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: web
+                port:
+                  number: 8080
+    - host: web2.workshop-springboot.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:                
+                name: web2
+                port:
+                  number: 8080
+

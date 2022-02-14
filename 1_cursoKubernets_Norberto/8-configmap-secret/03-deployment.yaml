@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-deployment
+  labels:
+    app: springboot
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  replicas: 2
+  selector:
+    matchLabels:
+      app: springboot
+  template:
+    metadata:
+      labels:
+        app: springboot
+    spec:
+      containers:
+       - name: springboot-container
+         image: enomoto/spring-boot-ms:2.0
+         imagePullPolicy: Always
+         livenessProbe:
+           httpGet:
+             path: /actuator/health/liveness
+             port: 8080
+           periodSeconds: 10 #specifies that the kubelet should perform a liveness probe every 10 seconds
+           initialDelaySeconds: 10 #tells the kubelet that it should wait 10 seconds before performing the first probe
+         readinessProbe:
+           httpGet:
+             path: /actuator/health/readiness
+             port: 8080
+           failureThreshold: 3 #the number of times the readiness probe needs to fail before the pod will no longer be considered ready
+           periodSeconds: 10 #specifies that the kubelet should perform a liveness probe every 10 seconds
+           initialDelaySeconds: 10 #tells the kubelet that it should wait 10 seconds before performing the first probe         
+         ports:
+           - containerPort: 8080
+         env:
+           - name: DB_HOST
+             valueFrom:
+               configMapKeyRef:
+                 key: DB_HOST
+                 name: springboot-config-map
+           - name: DB_PORT
+             valueFrom:
+               configMapKeyRef:
+                 key: DB_PORT
+                 name: springboot-config-map
+           - name: DB_USERNAME
+             valueFrom:
+               secretKeyRef:
+                 key: DB_USERNAME
+                 name: springboot-secret
+           - name: DB_PASSWORD
+             valueFrom:
+               secretKeyRef:
+                 key: DB_PASSWORD
+                 name: springboot-secret
+          # resources: # QoS Guaranteed limit e request iguais
+          #   limits:
+          #     cpu: 1000m
+          #     memory: 600Mi 
+          #   requests:
+          #     cpu: 1000m
+          #     memory: 600Mi                 
+                 
