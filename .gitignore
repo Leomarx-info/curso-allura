@@ -2,3 +2,11 @@
 **/.idea
 **/.DS_Store
 **/docker_k8s_data
+**/workshop-k8s-main.zip
+**/.terraform*
+**/terraform-aws-keygen.pub
+**/aws
+**/awscliv2.zip
+**/new_user_credentials.csv
+**/terraform_1.1.6_windows_amd64.zip
+
