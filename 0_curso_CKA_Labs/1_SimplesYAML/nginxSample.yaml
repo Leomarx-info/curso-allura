@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx-meta
-  namespace: workshop
+  name: nginx-lab
+  namespace: default
 spec:
   containers:
-    - name: nginx-container
+    - name: nginx
       image: nginx
