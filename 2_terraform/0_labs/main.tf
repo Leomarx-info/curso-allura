@@ -7,14 +7,10 @@ provider "aws" {
 
 resource "aws_instance" "labs-alura-sa-east-1" {
   provider = aws.sa-east-1
-  #Ubuntu Server 20.04 LTS (HVM)
-  ami = "ami-090006f29ecb2d79a"
-  #Red Hat Enterprise Linux 8 (HVM)
-  #ami = "ami-0c2485d67d416fc4f"9
-
+  ami = var.ami-list.sa-east-1
   count = 3
   instance_type = "t2.micro"
-  key_name = "terraform-aws-keygen"
+  key_name = var.private-key-aws-keygen
   tags = {
     Name = "lab${count.index}"
   }
@@ -31,14 +27,10 @@ provider "aws" {
 
 resource "aws_instance" "labs-alura-us-east-1" {
   provider = aws.us-east-1
-  #Ubuntu Server 20.04 LTS (HVM)
-  #ami = "ami-04505e74c0741db8d"
-  #Red Hat Enterprise Linux 8 (HVM)
-  ami = "ami-0b0af3577fe5e3532"
-
+  ami = var.ami-list.us-east-1
   count = 3
   instance_type = "t2.micro"
-  key_name = "terraform-aws-keygen"
+  key_name = var.private-key-aws-keygen
   tags = {
     Name = "lab${count.index}"
   }

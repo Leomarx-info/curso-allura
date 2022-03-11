@@ -1,3 +1,4 @@
+
 resource "aws_dynamodb_table" "basic-dynamodb-table-sa-east-1" {
   provider = aws.sa-east-1
   name = "GameScores"

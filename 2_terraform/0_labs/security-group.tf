@@ -8,7 +8,7 @@ resource "aws_security_group" "inbound-ssh-access-sa-east-1" {
     from_port = 22
     protocol  = "tcp"
     to_port   = 22
-    cidr_blocks = ["177.102.167.65/32"]
+    cidr_blocks = var.cidr-list-remote-access
   }
   tags = {
     Name = "inbound"
@@ -25,7 +25,7 @@ resource "aws_security_group" "outbound-http-update-ubuntu-sa-east-1" {
     from_port        = 80
     to_port          = 80
     protocol         = "tcp"
-    cidr_blocks      = ["91.189.88.142/32"]
+    cidr_blocks      = var.cidr-list-outbound-update
   }
 
   tags = {
@@ -45,7 +45,7 @@ resource "aws_security_group" "inbound-ssh-access-us-east-1" {
     from_port = 22
     protocol  = "tcp"
     to_port   = 22
-    cidr_blocks = ["177.102.167.65/32"]
+    cidr_blocks = var.cidr-list-remote-access
   }
   tags = {
     Name = "inbound"
@@ -62,7 +62,7 @@ resource "aws_security_group" "outbound-http-update-ubuntu-us-east-1" {
     from_port        = 80
     to_port          = 80
     protocol         = "tcp"
-    cidr_blocks      = ["91.189.88.142/32"]
+    cidr_blocks      = var.cidr-list-outbound-update
   }
 
   tags = {
